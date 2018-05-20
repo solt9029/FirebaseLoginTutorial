@@ -40,7 +40,7 @@ class App extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    const itemsRef = firebase.database().ref('items');
+    const itemsRef = firebase.database().ref(this.state.user.uid);
     const item = {
       title: this.state.currentItem,
       user: this.state.user.displayName || this.state.user.email
@@ -53,28 +53,29 @@ class App extends Component {
   }
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user });
-      } 
-    });
-    const itemsRef = firebase.database().ref('items');
-    itemsRef.on('value', (snapshot) => {
-      let items = snapshot.val();
-      let newState = [];
-      for (let item in items) {
-        newState.push({
-          id: item,
-          title: items[item].title,
-          user: items[item].user
-        });
+      if (!user) {
+        return;
       }
-      this.setState({
-        items: newState
+      this.setState({ user });
+      const itemsRef = firebase.database().ref(this.state.user.uid);
+      itemsRef.on('value', (snapshot) => {
+        let items = snapshot.val();
+        let newState = [];
+        for (let item in items) {
+          newState.push({
+            id: item,
+            title: items[item].title,
+            user: items[item].user
+          });
+        }
+        this.setState({
+          items: newState
+        });
       });
     });
   }
   removeItem(itemId) {
-    const itemRef = firebase.database().ref(`/items/${itemId}`);
+    const itemRef = firebase.database().ref(`/${this.state.user.uid}/${itemId}`);
     itemRef.remove();
   }
   render() {
