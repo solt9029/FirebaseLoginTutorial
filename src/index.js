@@ -6,10 +6,20 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import { connectedRouter } from 'react-router-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
-import configureStore from './configureStore';
+import { createStore, combineReducers, applyMiddleware} from 'redux';
+import { routerReducer, routerMiddleware } from 'react-router-redux';
+import * as reducers from './reducers';
 
 const history = createBrowserHistory();
-const store = configureStore(history);
+const store = createStore(
+  combineReducers({
+    ...reducers,
+    router: routerReducer
+  }),
+  applyMiddleware(
+    routerMiddleware(history)
+  )
+);
 
 ReactDOM.render(
   <Provider store={store}>
