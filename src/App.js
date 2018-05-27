@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import firebase, { auth, provider } from './firebase.js';
 
-class App extends Component {
+export default class App extends Component {
   constructor() {
     super();
     this.state = {
@@ -133,4 +133,3 @@ class App extends Component {
     );
   }
 }
-export default App;
