@@ -6,8 +6,8 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentItem: '',
-      username: '',
+      title: '',
+      content: '',
       items: [],
       user: null
     }
@@ -40,15 +40,15 @@ export default class App extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    const itemsRef = firebase.database().ref(this.state.user.uid);
+    const userRef = firebase.database().ref(this.state.user.uid);
     const item = {
-      title: this.state.currentItem,
-      user: this.state.user.displayName || this.state.user.email
+      title: this.state.title,
+      content: this.state.content
     }
-    itemsRef.push(item);
+    userRef.push(item);
     this.setState({
-      currentItem: '',
-      username: ''
+      title: '',
+      content: ''
     });
   }
   componentDidMount() {
@@ -57,19 +57,19 @@ export default class App extends Component {
         return;
       }
       this.setState({ user });
-      const itemsRef = firebase.database().ref(this.state.user.uid);
-      itemsRef.on('value', (snapshot) => {
-        let items = snapshot.val();
-        let newState = [];
-        for (let item in items) {
-          newState.push({
-            id: item,
-            title: items[item].title,
-            user: items[item].user
+      const userRef = firebase.database().ref(this.state.user.uid);
+      userRef.on('value', (snapshot) => {
+        let value = snapshot.val(); // 取得したデータ
+        let items = [];
+        for (let id in value) {
+          items.push({
+            id: id,
+            title: value[id].title,
+            content: value[id].content
           });
         }
         this.setState({
-          items: newState
+          items: items
         });
       });
     });
@@ -99,8 +99,8 @@ export default class App extends Component {
             <div className='container'>
               <section className='add-item'>
                     <form onSubmit={this.handleSubmit}>
-                      <input type="text" name="username" placeholder="What's your name?" onChange={this.handleChange} value={this.state.user.displayName || this.state.user.email} />
-                      <input type="text" name="currentItem" placeholder="What are you bringing?" onChange={this.handleChange} value={this.state.currentItem} />
+                      <input type="text" name="title" onChange={this.handleChange} value={this.state.title} placeholder="title" />
+                      <input type="text" name="content" onChange={this.handleChange} value={this.state.content} placeholder="content" />
                       <button>Add Item</button>
                     </form>
               </section>
@@ -112,10 +112,8 @@ export default class App extends Component {
                         return (
                           <li key={item.id}>
                             <h3>{item.title}</h3>
-                            <p>brought by: {item.user}
-                              {item.user === this.state.user.displayName || item.user === this.state.user.email ?
-                                <button onClick={() => this.removeItem(item.id)}>Remove Item</button>
-                              : null}
+                            <p>{item.content}
+                              <button onClick={() => this.removeItem(item.id)}>Remove Item</button>
                             </p>
                           </li>
                         )
@@ -128,7 +126,6 @@ export default class App extends Component {
         : 
           <p>You must be logged in!</p>
         }
-        
       </div>
     );
   }
