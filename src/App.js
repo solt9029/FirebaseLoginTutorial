@@ -87,7 +87,7 @@ export default class App extends Component {
               {this.state.user ?
                 <button onClick={this.logout}>Logout</button>                
               :
-                <button onClick={this.login}>Log In</button>              
+                <button onClick={this.login}>Login</button>              
               }
             </div>
         </header>
