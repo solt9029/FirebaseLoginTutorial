@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 
-var config = {
+const config = {
   apiKey: "AIzaSyB9WZG2GpbagZK-8SUWEwwLO2H6JK7UDtI",
   authDomain: "fir-logiututorial.firebaseapp.com",
   databaseURL: "https://fir-logiututorial.firebaseio.com",
@@ -8,7 +8,6 @@ var config = {
   storageBucket: "fir-logiututorial.appspot.com",
   messagingSenderId: "665839546206"
 };
-
 
 firebase.initializeApp(config);
 
