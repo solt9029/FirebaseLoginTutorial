@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
 import firebase, { auth, provider } from './firebase.js';
+import {Button, Navbar, NavbarBrand} from 'reactstrap';
 
 export default class App extends Component {
   constructor() {
@@ -78,56 +78,30 @@ export default class App extends Component {
   }
   renderHeader() {
     if (this.state.user) {
-      return <h1>Memo for {this.state.user.displayName}</h1>;
+      return <p>Memo for {this.state.user.displayName} <Button color="primary" onClick={this.logout}>Logout</Button></p>;
     }
-    return <h1>Memo</h1>;
-  }
-  renderButton() {
-    if (this.state.user) {
-      return <button onClick={this.logout}>Logout</button>;
-    }
-    return <button onClick={this.login}>Login</button>;
+    return <p>Memo <Button onClick={this.login}>Login</Button></p>;
   }
   render() {
     return (
-      <div className='app'>
-        <header>
-            <div className="wrapper">
-              {this.renderHeader()}
-              {this.renderButton()}
-            </div>
-        </header>
+      <div>
+        {this.renderHeader()}
         {this.state.user ?
           <div>
-            <div className='user-profile'>
-                <img src={this.state.user.photoURL} />
-            </div>
-            <div className='container'>
-              <section className='add-item'>
-                    <form onSubmit={this.handleSubmit}>
-                      <input type="text" name="title" onChange={this.handleChange} value={this.state.title} placeholder="title" />
-                      <input type="text" name="content" onChange={this.handleChange} value={this.state.content} placeholder="content" />
-                      <button>Add Item</button>
-                    </form>
-              </section>
-
-              <section className='display-item'>
-                  <div className="wrapper">
-                    <ul>
-                      {this.state.items.map((item) => {
-                        return (
-                          <li key={item.id}>
-                            <h3>{item.title}</h3>
-                            <p>{item.content}
-                              <button onClick={() => this.removeItem(item.id)}>Remove Item</button>
-                            </p>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </div>
-              </section>
-            </div>
+            <form onSubmit={this.handleSubmit}>
+              <input type="text" name="title" onChange={this.handleChange} value={this.state.title} placeholder="title" />
+              <input type="text" name="content" onChange={this.handleChange} value={this.state.content} placeholder="content" />
+              <button>Add Item</button>
+            </form>
+            <ul>
+              {this.state.items.map((item) => {
+                return (
+                  <li key={item.id}>
+                    <p>{item.title} : {item.content} <button onClick={() => this.removeItem(item.id)}>Remove Item</button></p>
+                  </li>
+                )
+              })}
+            </ul>
           </div>
         : 
           <p>You must be logged in!</p>
