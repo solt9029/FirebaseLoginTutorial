@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase, { auth, provider } from '../firebase.js';
-import {Button, Navbar, NavbarBrand} from 'reactstrap';
+import { Button, Navbar, NavbarBrand } from 'reactstrap';
 
 export default class App extends Component {
   constructor() {
