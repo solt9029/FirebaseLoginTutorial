@@ -83,7 +83,7 @@ export default class App extends Component {
       <div className='app'>
         <header>
             <div className="wrapper">
-              <h1>Fun Food Friends</h1>
+              <h1>Memo</h1>
               {this.state.user ?
                 <button onClick={this.logout}>Logout</button>                
               :
