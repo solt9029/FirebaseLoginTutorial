@@ -78,17 +78,25 @@ export default class App extends Component {
     const itemRef = firebase.database().ref(`/${this.state.user.uid}/${itemId}`);
     itemRef.remove();
   }
+  renderHeader() {
+    if (this.state.user) {
+      return <h1>Memo for {this.state.user.displayName}</h1>;
+    }
+    return <h1>Memo</h1>;
+  }
+  renderButton() {
+    if (this.state.user) {
+      return <button onClick={this.logout}>Logout</button>;
+    }
+    return <button onClick={this.login}>Login</button>;
+  }
   render() {
     return (
       <div className='app'>
         <header>
             <div className="wrapper">
-              <h1>Memo</h1>
-              {this.state.user ?
-                <button onClick={this.logout}>Logout</button>                
-              :
-                <button onClick={this.login}>Login</button>              
-              }
+              {this.renderHeader()}
+              {this.renderButton()}
             </div>
         </header>
         {this.state.user ?
