@@ -22,21 +22,19 @@ export default class App extends Component {
     });
   }
   login() {
-    auth.signInWithPopup(provider) 
-      .then((result) => {
-        const user = result.user;
-        this.setState({
-          user
-        });
+    auth.signInWithPopup(provider).then((result) => {
+      const user = result.user;
+      this.setState({
+        user: user
       });
+    });
   }
   logout() {
-    auth.signOut()
-      .then(() => {
-        this.setState({
-          user: null
-        });
+    auth.signOut().then(() => {
+      this.setState({
+        user: null
       });
+    });
   }
   handleSubmit(e) {
     e.preventDefault();
