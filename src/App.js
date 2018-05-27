@@ -126,7 +126,7 @@ export default class App extends Component {
             </div>
           </div>
         : 
-          <p>You must be logged in to see the potluck list and submit to it.</p>
+          <p>You must be logged in!</p>
         }
         
       </div>
