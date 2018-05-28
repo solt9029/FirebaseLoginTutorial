@@ -20,6 +20,7 @@ export default class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
   handleChange(e) {
     this.setState({
