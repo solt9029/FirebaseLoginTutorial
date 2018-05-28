@@ -85,19 +85,22 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        {
-          this.state.user
-          ? <UserNavbar user={this.state.user} logout={this.logout} />
-          : <LoginNavbar login={this.login} />
-        }
-        <Container>
-          <Row>
-            <Col sm={12}>
-              <MemoForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} title={this.state.title} content={this.state.content} />
-              <MemoList items={this.state.items} removeItem={this.removeItem} />
-            </Col>
-          </Row>
-        </Container>
+      {
+        this.state.user ? 
+        <div>
+          <UserNavbar user={this.state.user} logout={this.logout} />
+          <Container>
+            <Row>
+              <Col sm={12}>
+                <MemoForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} title={this.state.title} content={this.state.content} />
+                <MemoList items={this.state.items} removeItem={this.removeItem} />
+              </Col>
+            </Row>
+          </Container>
+        </div>
+        :
+        <LoginNavbar login={this.login} />
+      }
       </div>
     );
   }
