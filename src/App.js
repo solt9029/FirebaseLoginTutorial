@@ -4,6 +4,7 @@ import { Button, Navbar, NavbarBrand, Container, Row, Col, ListGroup, ListGroupI
 import LoginNavbar from './LoginNavbar';
 import UserNavbar from './UserNavbar';
 import MemoForm from './MemoForm';
+import Memo from './Memo';
 
 export default class App extends Component {
   constructor() {
@@ -94,11 +95,12 @@ export default class App extends Component {
               <ListGroup>
                 {this.state.items.map((item) => {
                   return (
-                    <ListGroupItem key={item.id}>
-                      <ListGroupItemHeading>{item.title}</ListGroupItemHeading>
-                      <ListGroupItemText>{item.content}</ListGroupItemText>
-                      <button onClick={() => this.removeItem(item.id)}>Remove Item</button>
-                    </ListGroupItem>
+                    <Memo item={item} />
+                    // <ListGroupItem key={item.id}>
+                    //   <ListGroupItemHeading>{item.title}</ListGroupItemHeading>
+                    //   <ListGroupItemText>{item.content}</ListGroupItemText>
+                    //   <button onClick={() => this.removeItem(item.id)}>Remove Item</button>
+                    // </ListGroupItem>
                   )
                 })}
               </ListGroup>
