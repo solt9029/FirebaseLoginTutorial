@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase, { auth, provider } from './firebase/index';
 import {Button, Navbar, NavbarBrand} from 'reactstrap';
+import AppHeader from './AppHeader';
 
 export default class App extends Component {
   constructor() {
@@ -86,6 +87,7 @@ export default class App extends Component {
     return (
       <div>
         {this.renderHeader()}
+        <AppHeader user={this.state.user} login={this.state.login} logout={this.state.logout} />
         {this.state.user ?
           <div>
             <form onSubmit={this.handleSubmit}>
