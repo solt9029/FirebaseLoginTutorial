@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import firebase, { auth, provider } from './firebase/index';
-import { Button, Navbar, NavbarBrand, Container, Row, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, ListGroupItemProps } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import LoginNavbar from './LoginNavbar';
 import UserNavbar from './UserNavbar';
 import MemoForm from './MemoForm';
-import Memo from './Memo';
 import MemoList from './MemoList';
 
 export default class App extends Component {
