@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import firebase, { auth, provider } from './firebase/index';
-import {Button, Navbar, NavbarBrand} from 'reactstrap';
+import { Button, Navbar, NavbarBrand, Container, Row, Col, ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, ListGroupItemProps } from 'reactstrap';
 import LoginNavbar from './LoginNavbar';
 import UserNavbar from './UserNavbar';
+import MemoForm from './MemoForm';
 
 export default class App extends Component {
   constructor() {
@@ -86,26 +87,24 @@ export default class App extends Component {
           ? <UserNavbar user={this.state.user} logout={this.logout} />
           : <LoginNavbar login={this.login} />
         }
-        {this.state.user ?
-          <div>
-            <form onSubmit={this.handleSubmit}>
-              <input type="text" name="title" onChange={this.handleChange} value={this.state.title} placeholder="title" />
-              <input type="text" name="content" onChange={this.handleChange} value={this.state.content} placeholder="content" />
-              <button>Add Item</button>
-            </form>
-            <ul>
-              {this.state.items.map((item) => {
-                return (
-                  <li key={item.id}>
-                    <p>{item.title} : {item.content} <button onClick={() => this.removeItem(item.id)}>Remove Item</button></p>
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        : 
-          <p>You must be logged in!</p>
-        }
+        <Container>
+          <Row>
+            <Col sm={12}>
+              <MemoForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} title={this.state.title} content={this.state.content} />
+              <ListGroup>
+                {this.state.items.map((item) => {
+                  return (
+                    <ListGroupItem key={item.id}>
+                      <ListGroupItemHeading>{item.title}</ListGroupItemHeading>
+                      <ListGroupItemText>{item.content}</ListGroupItemText>
+                      <button onClick={() => this.removeItem(item.id)}>Remove Item</button>
+                    </ListGroupItem>
+                  )
+                })}
+              </ListGroup>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
