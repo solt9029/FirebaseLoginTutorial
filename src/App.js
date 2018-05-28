@@ -5,6 +5,7 @@ import LoginNavbar from './LoginNavbar';
 import UserNavbar from './UserNavbar';
 import MemoForm from './MemoForm';
 import Memo from './Memo';
+import MemoList from './MemoList';
 
 export default class App extends Component {
   constructor() {
@@ -92,18 +93,7 @@ export default class App extends Component {
           <Row>
             <Col sm={12}>
               <MemoForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} title={this.state.title} content={this.state.content} />
-              <ListGroup>
-                {this.state.items.map((item) => {
-                  return (
-                    <Memo item={item} />
-                    // <ListGroupItem key={item.id}>
-                    //   <ListGroupItemHeading>{item.title}</ListGroupItemHeading>
-                    //   <ListGroupItemText>{item.content}</ListGroupItemText>
-                    //   <button onClick={() => this.removeItem(item.id)}>Remove Item</button>
-                    // </ListGroupItem>
-                  )
-                })}
-              </ListGroup>
+              <MemoList items={this.state.items} removeItem={this.removeItem} />
             </Col>
           </Row>
         </Container>
