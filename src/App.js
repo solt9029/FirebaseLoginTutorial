@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import firebase, { auth, provider } from './firebase/index';
 import {Button, Navbar, NavbarBrand} from 'reactstrap';
-import AppHeader from './AppHeader';
+import LoginNavbar from './LoginNavbar';
+import UserNavbar from './UserNavbar';
 
 export default class App extends Component {
   constructor() {
@@ -80,7 +81,11 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <AppHeader user={this.state.user} login={this.login} logout={this.logout} />
+        {
+          this.state.user
+          ? <UserNavbar user={this.state.user} logout={this.logout} />
+          : <LoginNavbar login={this.login} />
+        }
         {this.state.user ?
           <div>
             <form onSubmit={this.handleSubmit}>
