@@ -77,17 +77,10 @@ export default class App extends Component {
     const itemRef = firebase.database().ref(`/${this.state.user.uid}/${itemId}`);
     itemRef.remove();
   }
-  renderHeader() {
-    if (this.state.user) {
-      return <p>Memo for {this.state.user.displayName} <Button color="primary" onClick={this.logout}>Logout</Button></p>;
-    }
-    return <p>Memo <Button onClick={this.login}>Login</Button></p>;
-  }
   render() {
     return (
       <div>
-        {this.renderHeader()}
-        <AppHeader user={this.state.user} login={this.state.login} logout={this.state.logout} />
+        <AppHeader user={this.state.user} login={this.login} logout={this.logout} />
         {this.state.user ?
           <div>
             <form onSubmit={this.handleSubmit}>

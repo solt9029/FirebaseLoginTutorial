@@ -6,7 +6,7 @@ export default class AppHeader extends Component {
     if (this.props.user) {
       return this.props.user.displayName;
     }
-    return "aiueo";
+    return;
   }
   renderButton() {
     if (this.props.user) {
@@ -16,7 +16,7 @@ export default class AppHeader extends Component {
   }
   render() {
     return (
-      <header>header {this.renderDisplayName()}</header>
+      <header>Memo {this.renderDisplayName()} {this.renderButton()}</header>
     );
   }
 }
